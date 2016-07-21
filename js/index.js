@@ -8,7 +8,7 @@ window.addEventListener("load", function() {
   var noteListModel = new NoteListModel(NoteModel);
   new NoteController(document.getElementById("app"),
                      noteListModel,
-                     new NoteListView(noteListModel, Mustache),
+                     new NoteListView(noteListModel),
                      NoteView,
                      router);
 

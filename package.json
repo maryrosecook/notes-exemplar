@@ -15,8 +15,5 @@
     "mocha": "^2.5.3",
     "sinon": "^1.17.4",
     "zombie": "^4.2.1"
-  },
-  "dependencies": {
-    "mustache": "^2.2.1"
   }
 }
