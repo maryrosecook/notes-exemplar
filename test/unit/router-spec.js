@@ -47,15 +47,19 @@ function shouldRouteRequests() {
     it("should not match request if http verb is different", function() {
       var routeTrigger = sinon.spy();
       router.addRoute("GET", "/#/woo", routeTrigger);
-      router.sendRequest("POST", "http://google.com/#/woo");
-      assert.isFalse(routeTrigger.called);
+
+      assert.throws(function() {
+        router.sendRequest("POST", "http://google.com/#/woo");
+      }, "Request to unmapped route");
     });
 
     it("should not match request if url is different", function() {
       var routeTrigger = sinon.spy();
       router.addRoute("GET", "/#/woo", routeTrigger);
-      router.sendRequest("GET", "http://google.com/#/wooo");
-      assert.isFalse(routeTrigger.called);
+
+      assert.throws(function() {
+        router.sendRequest("GET", "http://google.com/#/wooo");
+      }, "Request to unmapped route");
     });
 
     it("should match a request without a hash", function() {

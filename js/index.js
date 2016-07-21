@@ -5,11 +5,12 @@ window.addEventListener("load", function() {
     window.location = "/#/notes";
   });
 
-  sendLocationEventsToRouter(router);
-
-  var noteListModel = new NoteListModel();
-  new NoteController(document.getElementById("notes"),
+  var noteListModel = new NoteListModel(NoteModel);
+  new NoteController(document.getElementById("app"),
                      noteListModel,
                      new NoteListView(noteListModel, Mustache),
+                     NoteView,
                      router);
+
+  setUpSendingLocationEventsToRouter(router);
 });

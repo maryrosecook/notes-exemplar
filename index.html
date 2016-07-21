@@ -5,20 +5,16 @@
     <title>Notes</title>
     <script src="node_modules/mustache/mustache.js"></script>
     <script src="js/router.js"></script>
-    <script src="js/send-location-events-to-router.js"></script>
+    <script src="js/set-up-sending-location-events-to-router.js"></script>
     <script src="js/note-model.js"></script>
     <script src="js/note-list-model.js"></script>
     <script src="js/note-list-view.js"></script>
+    <script src="js/note-view.js"></script>
     <script src="js/note-controller.js"></script>
     <script src="js/index.js"></script>
   </head>
 
   <body>
-    <form action="/#/notes" method="post">
-      Title: <input id="title" name="title" />
-      <input type="submit" id="create" name="create" value="Create">
-    </form>
-
-    <div id="notes"></div>
+    <div id="app"></div>
   </body>
 </html>

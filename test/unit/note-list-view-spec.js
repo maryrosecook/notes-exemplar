@@ -8,13 +8,25 @@ describe("::NoteListView", function() {
     it("should show title for a note", function() {
       var noteListModelMock = {
         all: sinon.stub().returns([{
-          title: sinon.stub().returns("Eat breakfast"),
+          title: sinon.stub().returns("Breakfast"),
           id: sinon.stub().returns(0)
         }])
       };
 
       assert.match(new NoteListView(noteListModelMock, mustache).toHtml(),
-                   /<span class='title'>Eat breakfast<\/span>/);
+                   /Breakfast/);
+    });
+
+    it("should link note to page that shows the note", function() {
+      var noteListModelMock = {
+        all: sinon.stub().returns([{
+          title: sinon.stub().returns("Breakfast"),
+          id: sinon.stub().returns(0)
+        }])
+      };
+
+      assert.match(new NoteListView(noteListModelMock, mustache).toHtml(),
+                   /<a href='\/#\/notes\/0'>Breakfast<\/a>/);
     });
 
     it("should wrap all todos in main div", function() {

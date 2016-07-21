@@ -15,15 +15,19 @@
       var route = this._matchRoute(httpVerb, url);
       if (route !== undefined) {
         route.trigger(event);
+      } else {
+        throw new Error("Request to unmapped route: " + httpVerb + " " + url);
       }
     },
 
     _matchRoute: function(httpVerb, requestUrl) {
-      var requestPath = requestUrl.toString().match(/http:\/\/[^\/]+:?\d*(\/?.*)/)[1];
+      var requestPath = requestUrl.toString().match(/(http:\/\/[^\/]+:?\d*)?(\/?.*)/)[2];
+
       return this
         ._routes
         .filter(function(route) {
-          return route.httpVerb === httpVerb && requestPath.match(route.path);
+          return route.httpVerb.toLowerCase() === httpVerb.toLowerCase() &&
+            requestPath.match(route.path);
         })[0];
     },
   };

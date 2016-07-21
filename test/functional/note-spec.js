@@ -34,6 +34,30 @@ describe("notes display", function() {
     });
   });
 
+  it("should allow user to create a note", function(done) {
+    browser.visit("/#/notes", function() {
+      browser
+        .fill("title", "Breakfast")
+        .pressButton("Create", function() {
+          browser.assert.text("#notes", "Breakfast");
+          done();
+        })
+    });
+  });
+
+  it("should allow user to view an individual note", function(done) {
+    browser.visit("/#/notes", function() {
+      browser
+        .fill("title", "Breakfast")
+        .pressButton("Create", function() {
+          browser.clickLink("Breakfast", function() {
+            browser.assert.text("#title", "Breakfast");
+            done();
+          });
+        })
+    });
+  });
+
   afterEach(function() {
     server.close();
   });

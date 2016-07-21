@@ -21,7 +21,7 @@
       return this
         ._noteModels
         .filter(function(noteModel) {
-          return noteModel.id() === id;
+          return noteModel.id() === parseInt(id);
         })[0];
     }
   };

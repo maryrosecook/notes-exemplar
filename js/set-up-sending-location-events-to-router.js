@@ -1,5 +1,5 @@
 ;(function(exports) {
-  function sendLocationEventsToRouter(router) {
+  function setUpSendingLocationEventsToRouter(router) {
     window.addEventListener("submit", function(event) {
       event.preventDefault();
       router.sendRequest(event.target.method, event.target.action, event);
@@ -12,5 +12,5 @@
     router.sendRequest("GET", window.location);
   };
 
-  exports.sendLocationEventsToRouter = sendLocationEventsToRouter;
+  exports.setUpSendingLocationEventsToRouter = setUpSendingLocationEventsToRouter;
 })(this);
