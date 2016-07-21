@@ -5,10 +5,9 @@ window.addEventListener("load", function() {
     window.location = "/#/notes";
   });
 
-  var noteListModel = new NoteListModel(NoteModel);
   new NoteController(document.getElementById("app"),
-                     noteListModel,
-                     new NoteListView(noteListModel),
+                     new NoteListModel(NoteModel),
+                     NoteListView,
                      NoteView,
                      router);
 
