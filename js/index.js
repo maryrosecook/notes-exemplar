@@ -1,5 +1,6 @@
 window.addEventListener("load", function() {
   var router = new Router();
+  proxyNavigationEventsToRouter(window, router);
 
   router.addRoute("GET", "/", function() {
     window.location = "/#/notes";
@@ -11,5 +12,5 @@ window.addEventListener("load", function() {
                      NoteView,
                      router);
 
-  setUpSendingLocationEventsToRouter(router);
+  router.sendRequest("GET", window.location);
 });
