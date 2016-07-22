@@ -48,8 +48,7 @@
     },
 
     _getNoteIdFromUrl: function(url) {
-      var pieces = url.hash.split("/");
-      return pieces[pieces.length - 1];
+      return url.hash.match(/(\d+)$/)[1];
     }
   };
 
