@@ -26,7 +26,7 @@
       "</form>",
 
       "<div id='notes'>",
-        noteListModel.all().map(noteModelToHtml),
+        noteListModel.all().map(noteModelToHtml).join(""),
       "</div>"
     ].join("");
   };
