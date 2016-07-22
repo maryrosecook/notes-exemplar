@@ -24,7 +24,7 @@
         .addRoute("POST", "/#/notes", function(event) {
           self._createNote(event);
           self._renderNoteList();
-        })
+        });
     },
 
     _renderHtml: function(html) {
