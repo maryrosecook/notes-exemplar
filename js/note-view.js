@@ -1,3 +1,5 @@
+"use strict";
+
 ;(function(exports) {
   function NoteView(noteModel) {
     this._noteModel = noteModel;

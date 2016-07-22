@@ -1,3 +1,5 @@
+"use strict";
+
 ;(function(exports) {
   function NoteListView(noteListModel) {
     this._noteListModel = noteListModel;

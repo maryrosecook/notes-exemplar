@@ -1,3 +1,5 @@
+"use strict";
+
 window.addEventListener("load", function() {
   var router = new Router();
   proxyNavigationEventsToRouter(window, router);

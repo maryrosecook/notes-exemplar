@@ -1,3 +1,5 @@
+"use strict";
+
 ;(function(exports) {
   function NoteController(appElement, noteListModel, NoteListView, NoteView, router) {
     this._appElement = appElement;

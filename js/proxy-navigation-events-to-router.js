@@ -1,3 +1,5 @@
+"use strict";
+
 ;(function(exports) {
   function proxyNavigationEventsToRouter(window, router) {
     window.addEventListener("submit", function(event) {
