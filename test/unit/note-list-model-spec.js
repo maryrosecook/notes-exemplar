@@ -1,35 +1,28 @@
-var assert = require('chai').assert;
-var sinon = require("sinon");
+"use strict";
+
+var test = require("../../js/test/test");
+var assert = require("../../js/test/assert");
+var stub = require("../../js/test/stub").stub;
 
 var NoteListModel = require("../../js/note-list-model").NoteListModel;
 
-describe("NoteListModel", function() {
-  describe("::new", function() {
-    it("should have no to dos when instantiated", function() {
-      assert.equal(new NoteListModel().all().length, 0);
-    });
+test.describe("NoteListModel", function() {
+  test.it("should have no notes when instantiated", function() {
+    assert.isTrue(new NoteListModel().all().length === 0);
   });
 
-  describe("#all", function() {
-    it("should return no to dos when there are no to dos", function() {
-      assert.equal(new NoteListModel().all().length, 0);
-    });
-
-    it("should return some todos when there are some to dos", function() {
-      var NoteModelMock = sinon.stub().returns({});
-      var noteListModel = new NoteListModel(NoteModelMock);
-      noteListModel.create("Breakfast");
-      noteListModel.create("Lunch");
-      assert.equal(noteListModel.all().length, 2);
-    });
+  test.it("should return some notes when all() called", function() {
+    var NoteModelMock = stub({});
+    var noteListModel = new NoteListModel(NoteModelMock);
+    noteListModel.create("Breakfast");
+    noteListModel.create("Lunch");
+    assert.isTrue(noteListModel.all().length === 2);
   });
 
-  describe("#create", function() {
-    it("should create a note when passed a title string", function() {
-      var NoteModelMock = sinon.stub().returns({});
-      var noteListModel = new NoteListModel(NoteModelMock);
-      noteListModel.create("Eat lunch");
-      assert.equal(noteListModel.all().length, 1);
-    });
+  test.it("should create a note when create() called with title string", function() {
+    var NoteModelMock = stub({});
+    var noteListModel = new NoteListModel(NoteModelMock);
+    noteListModel.create("Eat lunch");
+    assert.isTrue(noteListModel.all().length, 1);
   });
 });

@@ -1,61 +1,50 @@
-var assert = require('chai').assert;
-var sinon = require("sinon");
+"use strict";
+
+var test = require("../../js/test/test");
+var assert = require("../../js/test/assert");
+var stub = require("../../js/test/stub").stub;
 
 var NoteController = require("../../js/note-controller").NoteController;
 
-describe("NoteController", function() {
-  describe("::new", function() {
-    it("should be able to create a NoteController", function() {
-      var notesElementMock = {};
-      var noteListModelMock = {};
-      var noteListViewMock = {};
-      var NoteViewMock = sinon.stub();
-      var routerMock = { addRoute: sinon.stub().returnsThis() };
-      assert.instanceOf(new NoteController(notesElementMock,
-                                           noteListModelMock,
-                                           noteListViewMock,
-                                           NoteViewMock,
-                                           routerMock),
-                        NoteController);
-    });
+test.describe("NoteController", function() {
+  test.it("should be able to create a NoteController", function() {
+    var routerMock = {};
+    routerMock.addRoute = stub(routerMock);
+    var noteController = new NoteController({}, {}, {}, stub(), routerMock);
 
-    describe("route binding", function() {
-      var routerMock;
+    assert.isTrue(noteController instanceof NoteController);
+  });
 
-      beforeEach(function() {
-        var notesElementMock = {};
-        var noteListModelMock = {};
-        var noteListViewMock = { toHtml: sinon.stub() };
-        var NoteViewMock = sinon.stub();
-        routerMock = { addRoute: sinon.stub().returnsThis() };
+  test.it("should add route for GET index (listing notes)", function() {
+    var routerMock = {};
+    routerMock.addRoute = stub(routerMock);
+    var noteController = new NoteController({}, {}, {}, stub(), routerMock);
 
-        new NoteController(notesElementMock,
-                           noteListModelMock,
-                           noteListViewMock,
-                           NoteViewMock,
-                           routerMock);
-      });
+    var indexAddRouteCall = routerMock.addRoute.calls[1];
+    assert.isTrue(indexAddRouteCall[0] === "GET");
+    assert.isTrue(indexAddRouteCall[1] === "/#/notes");
+    assert.isTrue(indexAddRouteCall[2] instanceof Function);
+  });
 
-      it("should add route for GET index (listing notes)", function() {
-        sinon.assert.calledWith(routerMock.addRoute,
-                                "GET",
-                                "/#/notes",
-                                sinon.match.func);
-      });
+  test.it("should add route for POST index (creating note)", function() {
+    var routerMock = {};
+    routerMock.addRoute = stub(routerMock);
+    var noteController = new NoteController({}, {}, {}, stub(), routerMock);
 
-      it("should add route for POST index (creating note)", function() {
-        sinon.assert.calledWith(routerMock.addRoute,
-                                "POST",
-                                "/#/notes",
-                                sinon.match.func);
-      });
+    var indexAddRouteCall = routerMock.addRoute.calls[2];
+    assert.isTrue(indexAddRouteCall[0] === "POST");
+    assert.isTrue(indexAddRouteCall[1] === "/#/notes");
+    assert.isTrue(indexAddRouteCall[2] instanceof Function);
+  });
 
-      it("should add route for GET note/id (viewing single note)", function() {
-        sinon.assert.calledWith(routerMock.addRoute,
-                                "GET",
-                                "/#/notes/\\d+",
-                                sinon.match.func);
-      });
-    });
+  test.it("should add route for GET note/id (viewing single note)", function() {
+    var routerMock = {};
+    routerMock.addRoute = stub(routerMock);
+    var noteController = new NoteController({}, {}, {}, stub(), routerMock);
+
+    var indexAddRouteCall = routerMock.addRoute.calls[0];
+    assert.isTrue(indexAddRouteCall[0] === "GET");
+    assert.isTrue(indexAddRouteCall[1] === "/#/notes/\\d+");
+    assert.isTrue(indexAddRouteCall[2] instanceof Function);
   });
 });

@@ -1,27 +1,23 @@
-var assert = require('chai').assert;
+"use strict";
+
+var test = require("../../js/test/test");
+var assert = require("../../js/test/assert");
+
 var noteModelLib = require("../../js/note-model");
 
-describe("NoteModel", function() {
-  beforeEach(function() {
+test.describe("NoteModel", function() {
+  test.it("should allow creation of a new Note", function() {
     noteModelLib.resetAutoIncrementedId();
+    assert.isTrue(new noteModelLib.NoteModel() instanceof noteModelLib.NoteModel);
   });
 
-  describe("::new", function() {
-    it("should allow creation of new Note", function() {
-      assert.instanceOf(new noteModelLib.NoteModel(), noteModelLib.NoteModel);
-    });
+  test.it("should return title when title() called", function() {
+    var title = "Breakfast";
+    assert.isTrue(new noteModelLib.NoteModel(title).title() === title);
   });
 
-  describe("#title", function() {
-    it("should return title", function() {
-      var title = "Breakfast";
-      assert.equal(new noteModelLib.NoteModel(title).title(), title);
-    });
-  });
-
-  describe("#id", function() {
-    it("should return id", function() {
-      assert.equal(new noteModelLib.NoteModel("woo").id(), 0);
-    });
+  test.it("should return id when id() called", function() {
+    noteModelLib.resetAutoIncrementedId();
+    assert.isTrue(new noteModelLib.NoteModel("woo").id() === 0);
   });
 });

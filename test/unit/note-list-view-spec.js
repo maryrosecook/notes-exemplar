@@ -1,41 +1,43 @@
-var assert = require("chai").assert;
-var sinon = require("sinon");
+"use strict";
+
+var test = require("../../js/test/test");
+var assert = require("../../js/test/assert");
+var stub = require("../../js/test/stub").stub;
+
 var NoteListView = require("../../js/note-list-view").NoteListView;
-var mustache = require("mustache");
 
-describe("::NoteListView", function() {
-  describe("#toHtml", function() {
-    it("should show title for a note", function() {
-      var noteListModelMock = {
-        all: sinon.stub().returns([{
-          title: sinon.stub().returns("Breakfast"),
-          id: sinon.stub().returns(0)
-        }])
-      };
+test.describe("::NoteListView", function() {
+  test.it("should show title for a note", function() {
+    var noteListModelMock = {
+      all: stub([{
+        title: stub("Breakfast"),
+        id: stub(0)
+      }])
+    };
 
-      assert.match(new NoteListView(noteListModelMock, mustache).toHtml(),
-                   /Breakfast/);
-    });
+    assert.isTrue(new NoteListView(noteListModelMock).toHtml().match(/Breakfast/));
+  });
 
-    it("should link note to page that shows the note", function() {
-      var noteListModelMock = {
-        all: sinon.stub().returns([{
-          title: sinon.stub().returns("Breakfast"),
-          id: sinon.stub().returns(0)
-        }])
-      };
+  test.it("should link note to page that shows the note", function() {
+    var noteListModelMock = {
+      all: stub([{
+        title: stub("Breakfast"),
+        id: stub(0)
+      }])
+    };
 
-      assert.match(new NoteListView(noteListModelMock, mustache).toHtml(),
-                   /<a href='\/#\/notes\/0'>Breakfast<\/a>/);
-    });
+    assert.isTrue(new NoteListView(noteListModelMock)
+                  .toHtml()
+                  .match(/<a href='\/#\/notes\/0'>Breakfast<\/a>/));
+  });
 
-    it("should wrap all todos in main div", function() {
-      var noteListModelMock = {
-        all: sinon.stub().returns([])
-      };
+  test.it("should wrap all todos in main div", function() {
+    var noteListModelMock = {
+      all: stub([])
+    };
 
-      assert.match(new NoteListView(noteListModelMock, mustache).toHtml(),
-                   /<div id='notes'><\/div>/);
-    });
+    assert.isTrue(new NoteListView(noteListModelMock)
+                  .toHtml()
+                  .match(/<div id='notes'><\/div>/));
   });
 });

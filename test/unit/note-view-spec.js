@@ -1,16 +1,17 @@
-var assert = require("chai").assert;
-var sinon = require("sinon");
+"use strict";
+
+var test = require("../../js/test/test");
+var assert = require("../../js/test/assert");
+var stub = require("../../js/test/stub").stub;
+
 var NoteView = require("../../js/note-view").NoteView;
 
-describe("::NoteView", function() {
-  describe("#toHtml", function() {
-    it("should show title for a note", function() {
-      var noteModelMock = {
-        title: sinon.stub().returns("Breakfast")
-      };
+test.describe("::NoteView", function() {
+  test.it("should show title for a note", function() {
+    var noteModelMock = {
+      title: stub("Breakfast")
+    };
 
-      assert.match(new NoteView(noteModelMock).toHtml(),
-                   /Breakfast/);
-    });
+    assert.isTrue(new NoteView(noteModelMock).toHtml().match(/Breakfast/));
   });
 });
