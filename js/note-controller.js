@@ -15,7 +15,7 @@
 
       this._router
         .addRoute("GET", "/#/notes/\\d+", function(event) {
-          var noteModel = self._findNoteFromUrl(window.location);
+          var noteModel = self._findNoteForUrl(window.location);
           self._renderNote(noteModel);
         })
         .addRoute("GET", "/#/notes", function() {
@@ -39,7 +39,7 @@
       this._renderHtml(new this._NoteView(noteModel).toHtml());
     },
 
-    _findNoteFromUrl: function(url) {
+    _findNoteForUrl: function(url) {
       return this._noteListModel.findById(this._getNoteIdFromUrl(url));
     },
 
