@@ -4,47 +4,89 @@ var test = require("../../js/test/test");
 var assert = require("../../js/test/assert");
 var stub = require("../../js/test/stub").stub;
 
+var Router = require("../../js/router").Router;
 var NoteController = require("../../js/note-controller").NoteController;
 
 test.describe("NoteController", function() {
-  test.it("should be able to create a NoteController", function() {
-    var routerMock = {};
-    routerMock.addRoute = stub(routerMock);
-    var noteController = new NoteController({}, {}, stub(), stub(), routerMock);
+  // tests use an unmocked Router to avoid having to write verbose
+  // mock to test outgoing messages to noteListModel and router
 
-    assert.isTrue(noteController instanceof NoteController);
+  test.it("should render note list on GET /#/notes", function() {
+    var appElementMock = {};
+
+    var outputHtml = "outputHtml";
+    var NoteListViewMock = stub({ toHtml: stub(outputHtml) });
+
+    var router = new Router();
+
+    var noteController = new NoteController(appElementMock,
+                                            {},
+                                            NoteListViewMock,
+                                            stub(),
+                                            router);
+
+    router.sendRequest("GET", "/#/notes");
+    assert.isTrue(appElementMock.innerHTML === outputHtml);
   });
 
-  test.it("should add route for GET index (listing notes)", function() {
-    var routerMock = {};
-    routerMock.addRoute = stub(routerMock);
-    var noteController = new NoteController({}, {}, stub(), stub(), routerMock);
+  test.it("should create note on POST /#/notes", function() {
+    var noteListModelMock = { create: stub() };
+    var NoteListViewMock = stub({ toHtml: stub() });
+    var router = new Router();
+    var noteController = new NoteController({},
+                                            noteListModelMock,
+                                            NoteListViewMock,
+                                            stub(),
+                                            router);
 
-    var indexAddRouteCall = routerMock.addRoute.calls[1];
-    assert.isTrue(indexAddRouteCall[0] === "GET");
-    assert.isTrue(indexAddRouteCall[1] === "/#/notes");
-    assert.isTrue(indexAddRouteCall[2] instanceof Function);
+    var note = "hello";
+    var event = { target: { elements: { title: { value: note } } } };
+
+    router.sendRequest("POST", "/#/notes", event);
+    assert.isTrue(noteListModelMock.create.calls[0][0] === note);
   });
 
-  test.it("should add route for POST index (creating note)", function() {
-    var routerMock = {};
-    routerMock.addRoute = stub(routerMock);
-    var noteController = new NoteController({}, {}, stub(), stub(), routerMock);
+  test.it("should render note list on POST /#/notes", function() {
+    var appElementMock = {};
+    var noteListModelMock = { create: stub() };
 
-    var indexAddRouteCall = routerMock.addRoute.calls[2];
-    assert.isTrue(indexAddRouteCall[0] === "POST");
-    assert.isTrue(indexAddRouteCall[1] === "/#/notes");
-    assert.isTrue(indexAddRouteCall[2] instanceof Function);
+    var outputHtml = "the view";
+    var NoteListViewMock = stub({ toHtml: stub(outputHtml) });
+
+
+    var router = new Router();
+    var noteController = new NoteController(appElementMock,
+                                            noteListModelMock,
+                                            NoteListViewMock,
+                                            stub(),
+                                            router);
+
+    var event = { target: { elements: { title: {  } } } };
+    router.sendRequest("POST", "/#/notes", event);
+    assert.isTrue(appElementMock.innerHTML === outputHtml);
   });
 
-  test.it("should add route for GET note/id (viewing single note)", function() {
-    var routerMock = {};
-    routerMock.addRoute = stub(routerMock);
-    var noteController = new NoteController({}, {}, stub(), stub(), routerMock);
+  test.it("should render single note on GET /#/notes/1", function() {
+    var appElementMock = {};
+    var noteModelMock = {};
+    var noteListModelMock = { findById: stub(noteModelMock) };
 
-    var indexAddRouteCall = routerMock.addRoute.calls[0];
-    assert.isTrue(indexAddRouteCall[0] === "GET");
-    assert.isTrue(indexAddRouteCall[1] === "/#/notes/\\d+");
-    assert.isTrue(indexAddRouteCall[2] instanceof Function);
+    var outputHtml = "the view"
+    var noteViewMock = { toHtml: stub(outputHtml) };
+    var NoteViewMock = stub(noteViewMock);
+
+    var router = new Router();
+    var noteController = new NoteController(appElementMock,
+                                            noteListModelMock,
+                                            stub(),
+                                            NoteViewMock,
+                                            router);
+
+    var event = { newURL: "http://localhost:4000/#/notes/1" };
+    router.sendRequest("GET", "/#/notes/1", event);
+
+    assert.isTrue(NoteViewMock.calls[0][0] === noteModelMock);
+    assert.isTrue(noteViewMock.toHtml.calls.length === 1);
+    assert.isTrue(appElementMock.innerHTML === outputHtml);
   });
 });
