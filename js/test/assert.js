@@ -7,21 +7,22 @@ function isTrue(assertionToCheck) {
 };
 
 function throws(testFunction, expectedMessage) {
-  var thrownMessage = runFunctionAndCaptureExceptionMessage(testFunction);
+  var exception = catchExceptionFrom(testFunction);
 
-  if (thrownMessage === undefined) {
-    throw new Error("Assertion failed: did not throw exception");
-  } else if (thrownMessage !== expectedMessage) {
-    throw new Error("Assertion failed: exception message was - " +
-                    thrownMessage + ", rather than - " + expectedMessage);
+  if (exception === undefined) {
+    throw new Error("Did not throw exception");
+  }
+
+  if (exception.message !== expectedMessage) {
+    throw new Error("Expected '" + expectedMessage + "' but got '" + exception.message + "'");
   }
 };
 
-function runFunctionAndCaptureExceptionMessage(fn) {
+function catchExceptionFrom(fn) {
   try {
     fn();
   } catch (exception) {
-    return exception.message;
+    return exception;
   }
 };
 
