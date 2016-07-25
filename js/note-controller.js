@@ -34,7 +34,7 @@
     },
 
     _renderNoteList: function() {
-      this._renderHtml(new this._noteListView.toHtml());
+      this._renderHtml(this._noteListView.toHtml());
     },
 
     _renderNote: function(noteModel) {
