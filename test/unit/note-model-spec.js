@@ -11,9 +11,9 @@ test.describe("NoteModel", function() {
     assert.isTrue(new noteModelLib.NoteModel() instanceof noteModelLib.NoteModel);
   });
 
-  test.it("should return title when title() called", function() {
-    var title = "Breakfast";
-    assert.isTrue(new noteModelLib.NoteModel(title).title() === title);
+  test.it("should return text when text() called", function() {
+    var text = "Breakfast";
+    assert.isTrue(new noteModelLib.NoteModel(text).text() === text);
   });
 
   test.it("should return id when id() called", function() {

@@ -40,7 +40,7 @@ test.describe("NoteController", function() {
                                             router);
 
     var note = "hello";
-    var event = { target: { elements: { title: { value: note } } } };
+    var event = { target: { elements: { text: { value: note } } } };
 
     router.sendRequest("POST", "/#/notes", event);
     assert.isTrue(noteListModelMock.create.calls[0][0] === note);
@@ -61,7 +61,7 @@ test.describe("NoteController", function() {
                                             stub(),
                                             router);
 
-    var event = { target: { elements: { title: {  } } } };
+    var event = { target: { elements: { text: {  } } } };
     router.sendRequest("POST", "/#/notes", event);
     assert.isTrue(appElementMock.innerHTML === outputHtml);
   });

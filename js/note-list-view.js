@@ -13,7 +13,7 @@
 
   function createNoteModelPresenter(noteModel) {
     return {
-      title: noteModel.title(),
+      textBeginning: noteModel.text().slice(0, 20),
       url: "/#/notes/" + noteModel.id()
     }
   };
@@ -21,7 +21,7 @@
   function noteListModelToHtml(noteListModel) {
     return [
       "<form action='/#/notes' method='post'>",
-        "Title: <input id='title' name='title' />",
+        "<textarea id='text' name='text'></textarea>",
         "<input type='submit' id='create' name='create' value='Create'>",
       "</form>",
 
@@ -35,9 +35,9 @@
     var noteModelPresenter = createNoteModelPresenter(noteModel);
     return [
       "<div class='note'>",
-        "<span class='title'>",
+        "<span class='text'>",
           "<a href='", noteModelPresenter.url, "'>",
-            noteModelPresenter.title,
+            noteModelPresenter.textBeginning,
           "</a>",
         "</span> ",
       "</div>"

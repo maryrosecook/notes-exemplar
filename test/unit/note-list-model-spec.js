@@ -19,7 +19,7 @@ test.describe("NoteListModel", function() {
     assert.isTrue(noteListModel.all().length === 2);
   });
 
-  test.it("should create a note when create() called with title string", function() {
+  test.it("should create a note when create() called with text string", function() {
     var NoteModelMock = stub({});
     var noteListModel = new NoteListModel(NoteModelMock);
     noteListModel.create("Eat lunch");

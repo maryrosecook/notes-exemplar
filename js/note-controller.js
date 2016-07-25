@@ -46,7 +46,7 @@
     },
 
     _createNote: function(event) {
-      this._noteListModel.create(event.target.elements.title.value);
+      this._noteListModel.create(event.target.elements.text.value);
     },
 
     _getNoteIdFromUrl: function(url) {

@@ -11,8 +11,8 @@
       return this._noteModels.concat();
     },
 
-    create: function(title) {
-      var noteModel = new this._NoteModel(title);
+    create: function(text) {
+      var noteModel = new this._NoteModel(text);
       this._noteModels.push(noteModel);
       return noteModel;
     },

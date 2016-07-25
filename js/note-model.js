@@ -6,9 +6,9 @@
     nextId = 0;
   };
 
-  function NoteModel(title) {
+  function NoteModel(text) {
     this._id = nextId++;
-    this._title = title;
+    this._text = text;
   };
 
   NoteModel.prototype = {
@@ -16,8 +16,8 @@
       return this._id;
     },
 
-    title: function() {
-      return this._title;
+    text: function() {
+      return this._text;
     }
   };
 

@@ -8,9 +8,9 @@
   NoteView.prototype = {
     toHtml: function() {
       return [
-        "<span id='title'>",
-          this._noteModel.title(),
-        "</span>"
+        "<div id='text'>",
+          this._noteModel.text(),
+        "</div>",
       ].join("");
     }
   };

@@ -6,11 +6,11 @@ var stub = require("../../js/test/stub").stub;
 
 var NoteListView = require("../../js/note-list-view").NoteListView;
 
-test.describe("::NoteListView", function() {
-  test.it("should show title for a note", function() {
+test.describe("NoteListView", function() {
+  test.it("should show text for a note", function() {
     var noteListModelMock = {
       all: stub([{
-        title: stub("Breakfast"),
+        text: stub("Breakfast"),
         id: stub(0)
       }])
     };
@@ -18,10 +18,23 @@ test.describe("::NoteListView", function() {
     assert.isTrue(new NoteListView(noteListModelMock).toHtml().match(/Breakfast/));
   });
 
+  test.it("should show only beginning of text for a note", function() {
+    var noteListModelMock = {
+      all: stub([{
+        text: stub("0123456789 01234567890 123456789"),
+        id: stub(0)
+      }])
+    };
+
+    assert.isTrue(new NoteListView(noteListModelMock)
+                  .toHtml()
+                  .match(/0123456789 012345678/));
+  });
+
   test.it("should link note to page that shows the note", function() {
     var noteListModelMock = {
       all: stub([{
-        title: stub("Breakfast"),
+        text: stub("Breakfast"),
         id: stub(0)
       }])
     };
