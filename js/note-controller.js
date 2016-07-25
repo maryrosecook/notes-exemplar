@@ -4,7 +4,7 @@
   function NoteController(appElement, noteListModel, NoteListView, NoteView, router) {
     this._appElement = appElement;
     this._noteListModel = noteListModel;
-    this._NoteListView = NoteListView;
+    this._noteListView = new NoteListView(this._noteListModel);
     this._NoteView = NoteView;
     this._router = router;
 
@@ -34,7 +34,7 @@
     },
 
     _renderNoteList: function() {
-      this._renderHtml(new this._NoteListView(this._noteListModel).toHtml());
+      this._renderHtml(new this._noteListView.toHtml());
     },
 
     _renderNote: function(noteModel) {
