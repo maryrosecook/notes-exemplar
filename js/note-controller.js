@@ -17,7 +17,7 @@
 
       this._router
         .addRoute("GET", "/#/notes/\\d+", function(event) {
-          var noteModel = self._findNoteForUrl(window.location);
+          var noteModel = self._findNoteForUrl(event.newURL);
           self._renderNote(noteModel);
         })
         .addRoute("GET", "/#/notes", function() {
