@@ -50,7 +50,7 @@
     },
 
     _getNoteIdFromUrl: function(url) {
-      return url.hash.match(/(\d+)$/)[1];
+      return url.match(/(\d+)$/)[1];
     }
   };
 
