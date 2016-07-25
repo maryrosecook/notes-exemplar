@@ -21,6 +21,7 @@ function reportPassedTest(expectationDescription) {
 function reportFailedTest(expectationDescription, exception) {
   console.log("❌ ", expectationDescription);
   console.log("  ", exception.message)
+  console.log(exception.stack);
 };
 
 exports.describe = describe;
